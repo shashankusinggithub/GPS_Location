@@ -13,14 +13,14 @@ const Login = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log("run}")
+		console.log("run")
 		try {
-			
-			const { data: res } = await axios.post('/auth', data);
+			const { data: res } = await axios.post(`http://localhost:8080/login`, data);
+			console.log(data)
 			console.log(res.data)
 			localStorage.setItem("token", res.data);
 			console.log(res.data)
-			window.location = "/";
+			// window.location = "/";
 		} catch (error) {
 			if (
 				error.response &&

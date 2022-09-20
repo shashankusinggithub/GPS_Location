@@ -52,7 +52,7 @@ export async function loginUser(data) {
       if (!validPassword)
         return "Invalid Email or Password"
 
-        const token = jwt.sign({...data, password:user[0].password}, process.env.JWTPRIVATEKEY,);
+        const token = jwt.sign({ID: user[0].ID}, process.env.JWTPRIVATEKEY,);
         console.log(token)
       return ({ "data": token, message: "logged in successfully" })
     }
@@ -68,29 +68,31 @@ export async function addUser(data) {
   const [result] = await DB.query(`SELECT * FROM users 
   where email = ?`, [data.email]
   )
-
   if (result[0]) {
     return "email alreay exists "
   }
   else {
+    
     const { error } = validateSignup(data)
-
+    
     if (error)
-      return error.details[0].message
+    return error.details[0].message
   }
-  return await createUser(data)
-
+  return  (await createUser(data))
+  
+  
 }
 
 async function createUser(data) {
   const salt = await bcrypt.genSalt(Number(process.env.SALT));
   const hashPassword = await bcrypt.hash(data.password, salt);
-
-
+  
+  
   await DB.query(`
   INSERT INTO users (firstname, lastname, email, password)
   VALUES (?,?,?,?)`, [data.firstname, data.lastname, data.email, hashPassword]
   )
+  console.log(data)
   return "user added successfully"
 }
 

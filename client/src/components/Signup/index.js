@@ -5,8 +5,8 @@ import styles from "./styles.module.css";
 
 const Signup = () => {
 	const [data, setData] = useState({
-		firstName: "",
-		lastName: "",
+		firstname: "",
+		lastname: "",
 		email: "",
 		password: "",
 	});
@@ -20,10 +20,10 @@ const Signup = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "users";
+			const url = `http://localhost:8080/signup`;
 			const { data: res } = await axios.post(url, data);
-			navigate("/login");
-			console.log(res.message);
+			// navigate("/login");
+			console.log(res);
 		} catch (error) {
 			if (
 				error.response &&
@@ -52,18 +52,18 @@ const Signup = () => {
 						<input
 							type="text"
 							placeholder="First Name"
-							name="firstName"
+							name="firstname"
 							onChange={handleChange}
-							value={data.firstName}
+							value={data.firstname}
 							required
 							className={styles.input}
 						/>
 						<input
 							type="text"
 							placeholder="Last Name"
-							name="lastName"
+							name="lastname"
 							onChange={handleChange}
-							value={data.lastName}
+							value={data.lastname}
 							required
 							className={styles.input}
 						/>

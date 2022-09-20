@@ -1,8 +1,12 @@
 import express from "express"
 import {addUser, loginUser} from "./database.js"
+import cors from "cors"
+
 
 const app = express();
 app.use(express.json())
+app.use(cors())
+
 
 
 
@@ -13,12 +17,14 @@ app.use((err, req, res, next) => {
 
 
 app.get("/users", (req, res) => {
+  console.log("hi")
   res.send("list of devices")
 })
 
 app.post("/signup", async (req, res) => {
   try{
     const report = await addUser(req.body)
+    console.log(report)
     res.status(201).send(report)
   }
   catch{
@@ -27,9 +33,10 @@ app.post("/signup", async (req, res) => {
 })
 
 app.post("/login", async (req, res) => {
+  
   try{
+    console.log(req.body)
     const report = await loginUser(req.body)
-    console.log(report)
     res.status(201).send(report)
   }
   catch{
