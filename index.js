@@ -1,26 +1,42 @@
-const express = require("express");
-const cors = require("cors");
+import express from "express"
+import {addUser, loginUser} from "./database.js"
 
 const app = express();
+app.use(express.json())
 
-var corsOptions = {
-    origin: "http://localhost:3000"
-};
 
-app.use(cors(corsOptions));
 
-// parse requests of content-type - application/json
-app.use(express.json());
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
 
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
 
-// simple route
-app.get("/", (req, res) => {
-    res.json({ message: "Welcome to bezkoder application." });
-});
+app.get("/users", (req, res) => {
+  res.send("list of devices")
+})
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
+app.post("/signup", async (req, res) => {
+  try{
+    const report = await addUser(req.body)
+    res.status(201).send(report)
+  }
+  catch{
+    res.status(500).send({ message: "Internal Server Error" })
+  }
+})
+
+app.post("/login", async (req, res) => {
+  try{
+    const report = await loginUser(req.body)
+    console.log(report)
+    res.status(201).send(report)
+  }
+  catch{
+    res.status(500).send({ message: "Internal Server Error" })
+  }
+})
+
+app.listen(8080, () => {
+  console.log("server is running on port 8080")
+})
