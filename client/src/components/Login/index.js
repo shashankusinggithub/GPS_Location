@@ -19,8 +19,7 @@ const Login = () => {
 			console.log(data)
 			console.log(res.data)
 			localStorage.setItem("token", res.data);
-			console.log(res.data)
-			// window.location = "/";
+			window.location = "/";
 		} catch (error) {
 			if (
 				error.response &&
