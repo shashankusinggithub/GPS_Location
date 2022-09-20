@@ -4,10 +4,7 @@ import Joi from "joi"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 
-
 dotenv.config()
-
-
 
 const validateSignup = (data) => {
   const schema = Joi.object({

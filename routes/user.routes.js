@@ -1,5 +1,5 @@
 module.exports = app => {
-    const user = require("../indexl");
+    const user = require("..");
     var router = require("express").Router();
     
     console.log("route")
