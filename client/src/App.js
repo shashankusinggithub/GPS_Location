@@ -4,23 +4,29 @@ import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
 import Login from './components/Login';
 import Signup from './components/Signup'
 import Main from "./components/Main"
+import Details from './components/Details';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 function App() {
   const user = localStorage.getItem("token");
 
+
   return (
-    <BrowserRouter>
-      <Routes>
-        {user && <Route path="/" exact element={<Main />} />}
-        <Route path="/signup" exact element={<Signup />} />
-        <Route path="/login" exact element={<Login />} />
-        <Route path="/" element={<Login />}>
+    <div>
+        <BrowserRouter>
 
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          <Routes>
+            {user && <Route path="/" exact element={<Main />} />}
+            <Route path="/signup" exact element={<Signup />} />
+            <Route path="/login" exact element={<Login />} />
+            <Route path="/" element={<Login />} />
+            <Route path='/:id' element={<Details />}>/</Route>
+          </Routes>
 
+        </BrowserRouter>
+    </div>
   );
 }
 

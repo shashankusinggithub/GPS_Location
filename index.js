@@ -1,13 +1,11 @@
 import express from "express"
-import {addUser, loginUser} from "./database.js"
+import {addUser, loginUser, deviceData,allData} from "./database.js"
 import cors from "cors"
 
 
 const app = express();
 app.use(express.json())
 app.use(cors())
-
-
 
 
 app.use((err, req, res, next) => {
@@ -43,6 +41,18 @@ app.post("/login", async (req, res) => {
     res.status(500).send({ message: "Internal Server Error" })
   }
 })
+
+app.get("/devices/:id", async (req,res) => {
+  const report = await deviceData(req.params['id'])
+  console.log(report)
+  res.status(201).send(report)
+} )
+
+app.get("/devices", async (req,res) => {
+  const report = await allData()
+  console.log(report)
+  res.status(201).send(report)
+} )
 
 app.listen(8080, () => {
   console.log("server is running on port 8080")

@@ -51,6 +51,19 @@
             "name": "NEW",
             "database": "TESTING",
             "username": "shashank"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "askForPassword": true,
+            "driver": "MySQL",
+            "name": "MY",
+            "database": "gps_monitor",
+            "username": "shashank"
         }
     ]
 }

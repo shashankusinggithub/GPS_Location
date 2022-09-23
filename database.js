@@ -42,7 +42,7 @@ export async function loginUser(data) {
       where email = ?`, [data.email]
     )
     if (!user[0]) {
-      return "account does not exists"
+      return { message : "account does not exists"}
     }
     else {
       const validPassword = await bcrypt.compare(
@@ -50,13 +50,49 @@ export async function loginUser(data) {
         user[0].password
       )
       if (!validPassword)
-        return "Invalid Email or Password"
+        return {message:"Invalid Email or Password"}
 
         const token = jwt.sign({ID: user[0].ID}, process.env.JWTPRIVATEKEY,);
         console.log(token)
       return ({ "data": token, message: "logged in successfully" })
     }
   }
+  catch (error) {
+    return { message: error }
+  }
+}
+
+export async function allData() {
+  try{
+    const [result] = await DB.query(`SELECT * FROM gps_locations; `
+    )
+    console.log(result)
+    if (result[0]) {
+      return result
+    }
+    else {
+      return { message: 'device_id does not exits'}
+    }}
+  catch (error) {
+    return { message: error }
+  }
+}
+
+
+
+export async function deviceData(data) {
+  try{
+    console.log(data)
+    const [result] = await DB.query(`SELECT * FROM gps_locations 
+    where  Device_ID = ?`, [data]
+    )
+    console.log(result)
+    if (result[0]) {
+      return result
+    }
+    else {
+      return { message: 'device_id does not exits'}
+    }}
   catch (error) {
     return { message: error }
   }
@@ -69,12 +105,10 @@ export async function addUser(data) {
   where email = ?`, [data.email]
   )
   if (result[0]) {
-    return "email alreay exists "
+    return {message :"email alreay exists "}
   }
   else {
-    
     const { error } = validateSignup(data)
-    
     if (error)
     return error.details[0].message
   }
@@ -86,7 +120,6 @@ export async function addUser(data) {
 async function createUser(data) {
   const salt = await bcrypt.genSalt(Number(process.env.SALT));
   const hashPassword = await bcrypt.hash(data.password, salt);
-  
   
   await DB.query(`
   INSERT INTO users (firstname, lastname, email, password)
