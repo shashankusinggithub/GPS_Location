@@ -45,7 +45,7 @@ const Details = () => {
   useEffect(() => {
     axios.get(`http://localhost:8080/devices/${id}`).then((response) => {
       setDeviceData(response.data);
-      setLoading(false)
+      
       return response
     })
       .then((res) => {
@@ -86,7 +86,7 @@ const Details = () => {
         setData(data)
         setMaxi(maxi)
         console.log(data, temp)
-
+        setLoading(false)
         return res
       }
 
@@ -182,7 +182,7 @@ const Details = () => {
               {data.map((item) => {
                 console.log((item))
                 return (
-                  <div className='d-flex flex-row align-middle '>
+                  <div className='d-flex flex-row align-middle label_all '>
                   <div style={{backgroundColor: item.color}} className='dots mr-3'> </div>
                   {/* <h1 style={{color: item.color}}  >O</h1> */}
                   <h1 style={{color: 'white'}} className='ml-2 px-2 lable' >{item.x}</h1>
