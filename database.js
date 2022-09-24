@@ -3,6 +3,7 @@ import mysql from "mysql2"
 import Joi from "joi"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
+import DB from './db.config'
 
 dotenv.config()
 
@@ -24,12 +25,7 @@ const validateLogin = (data) => {
   return schema.validate(data);
 };
 
-const DB = mysql.createPool({
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASS,
-  database: process.env.MYSQL_DB,
-}).promise();
+
 
 
 export async function loginUser(data) {
@@ -52,7 +48,7 @@ export async function loginUser(data) {
       if (!validPassword)
         return {message:"Invalid Email or Password"}
 
-        const token = jwt.sign({ID: user[0].ID}, process.env.JWTPRIVATEKEY,);
+        const token = jwt.sign({email: user[0].email}, process.env.JWTPRIVATEKEY,);
         console.log(token)
       return ({ "data": token, message: "logged in successfully" })
     }

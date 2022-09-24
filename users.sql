@@ -44,4 +44,4 @@ VALUES ('D-1567', 'Aircraft', '2022-08-31 10:05:00', 'L1'),
 ;
 
 USE gps_monitor;
-SELECT * FROM gps_locations
+SELECT * FROM users
