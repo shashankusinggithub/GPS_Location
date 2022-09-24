@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Table } from "reactstrap"
 import { Link } from "react-router-dom";
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-
+import './index.css'
 
 
 
@@ -12,6 +12,7 @@ const PTable = ({ props, allList }) => {
     const [activeSort, setActiveSort] = useState('')
     const [active, setActive] = useState(0)
     const [name, setName] = useState("");
+    
 
     const changePages = (page) => {
         console.log(page)
@@ -52,9 +53,7 @@ const PTable = ({ props, allList }) => {
         setActiveSort(name)
     }
 
-    // const findAll= (item ,word) => {
-    //     if 
-    // }
+
     const handleChange =(e) => {
         setName(e.target.value)
         console.log(name, e.target.value)
@@ -126,6 +125,9 @@ const PTable = ({ props, allList }) => {
                         <th onClick={() => sort('Location')} id='Location'>
                             Location
                         </th>
+                        <th>
+
+                        </th>
 
                     </tr>
                 </thead>
@@ -146,13 +148,15 @@ const PTable = ({ props, allList }) => {
                             <td>
                                 {item.Location}
                             </td>
-                            <td className='navigate1'>
+                            <td className='navigate1' >
                                 <Link
-                                    className="btn btn-primary"
+                                    className="navi d-inline-flex "
                                     to=
                                     {`/${item.Device_ID}`}
                                 >
-                                    <h1 className='hovering'>➞</h1>
+                                    <span className='test d-inline-flex align' data-hover=' See Details '>
+                                    <h1 className='hovering '> ➞</h1>
+                                    </span>
                                 </Link>
                             </td>
                         </tr>

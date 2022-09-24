@@ -1,42 +1,12 @@
-.container {
-	width: 100%;
-	min-height: 100vh;
-	/* background-color: #000000; */
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
 
 .maincontainer {
-	width: 90vw;
-	/* max-width: 900px; */
-	height: 90vh;
-	/* max-height: 500px; */
-	display: flex;
-	border-radius: 10px;
-	border-style: dotted;
-	text-align: justify;
-	border-width: 1px;
-	border-color: #edf5f3;
+	text-align: center;
 	color: aliceblue !important;
 	box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
 		0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
 }
 
-.navigate1 td h1{
-	color: #edf5f3 !important;
-	font-size: 40px;
-	/* height: 20px; */
-	text-align: center;
-}
 
-.navigate1:hover {
-	
-	z-index: -1;
-	transform: scale(1.5);
-	content: "click!"
-	
-}
 
 
 
@@ -78,6 +48,7 @@
 	border-color: gray;
 	font-size: medium;
 	color: grey !important;
+	width: fit-content;
 
 }
 
@@ -88,13 +59,49 @@
 	width: 100vw;
 }
 
-a.btn.btn-primary {
-    /* --bs-btn-color: #fff; */
-    --bs-btn-bg: none;
-    --bs-btn-border-color: none;
-    --bs-btn-hover-color: none;
-    --bs-btn-hover-bg: none;
-	--bs-btn-hover-content: 'click'
-    
+.navi{
+	color: #edf5f3;
+	text-decoration: none;
+	/* margin-left: 10px; */
+	margin-right: 10px;
+	text-align: end;
+	justify-content: end;
+	width: 100px;
+	
 }
 
+
+
+
+
+.navigate1 td h1{
+	color: #edf5f3 !important;
+	font-size: 30px;
+	/* height: 20px; */
+	text-align:right;
+	color: #edf5f3;
+	text-decoration: none;
+	
+	/* padding-left: 30% */
+	
+}
+
+
+.test:hover {
+	position:inherit;
+	font-size: 0;
+	transform: scale(1.5)
+	
+  }
+  
+  .test:hover:before {
+	font-size: 10px;
+	content: attr(data-hover);
+	color: #edf5f3;
+	margin-top: 1.5vh;
+	;
+  }
+
+  .hovering {
+	color: #edf5f3;
+  }
