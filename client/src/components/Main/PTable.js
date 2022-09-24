@@ -12,7 +12,7 @@ const PTable = ({ props, allList }) => {
     const [activeSort, setActiveSort] = useState('')
     const [active, setActive] = useState(0)
     const [name, setName] = useState("");
-    
+
 
     const changePages = (page) => {
         console.log(page)
@@ -54,57 +54,54 @@ const PTable = ({ props, allList }) => {
     }
 
 
-    const handleChange =(e) => {
+    const handleChange = (e) => {
         setName(e.target.value)
         console.log(name, e.target.value)
-        if (e.target.value){
-        setTemplist((list) => {
+        if (e.target.value) {
+            setTemplist((list) => {
 
-              let temp = allList.filter( item => (item['Device_Type'].toLowerCase().includes(e.target.value.toLowerCase()) || item['Device_ID'].toLowerCase().includes(e.target.value.toLowerCase())))
-              setItems(temp.slice(active,active+5))
-              return temp
+                let temp = allList.filter(item => (item['Device_Type'].toLowerCase().includes(e.target.value.toLowerCase()) || item['Device_ID'].toLowerCase().includes(e.target.value.toLowerCase())))
+                setItems(temp.slice(active, active + 5))
+                return temp
             })
         }
         else {
             setTemplist(allList)
-            setItems(allList.slice(active,active+5))
+            setItems(allList.slice(active, active + 5))
             return
         }
-        }
-    
+    }
+
     return (
         <div className='gpsHeading'>
 
             <h1 >GPS  Summary</h1>
             <div className='d-flex justify-content-between align-middle mt-5 '>
 
-                <input placeholder='type anything' 
-                onChange={handleChange}
-                value={name} type="text"
-                className='border border-light text-center rounded-pill bg-transparent text-white'></input>
-                <div className='d-flex justify-content-center'>
+                <input placeholder='Search by DeviceID / Type'
+                    onChange={handleChange}
+                    value={name} type="text"
+                    className='border border-light text-center rounded-pill bg-transparent text-white'></input>
+                <div className='d-inline-flex  align-middle '>
 
-                    <h5 className='mx-5'>
+                    <h5 className='mx-5 mt-3'>
                         {active} - {active + 5 < tempList.length ? active + 5 : tempList.length} of {tempList.length} </h5>
-                    <Pagination>
-                        <PaginationItem >
-                            <PaginationLink dark previous
-                                onClick={() =>
-                                    changePages(active - 5)}
-                                className='bg-transparent text-white hover btn btn-outline-danger'
-                            >
-                                {`❮`}
-                            </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink className='  btn btn-outline-danger bg-transparent text-white ' next
-                                onClick={() =>
-                                    changePages(active + 5)}
-                            >
-                                {` ❯ `}
-                            </PaginationLink>
-                        </PaginationItem>
-                    </Pagination>
+
+                    <button previous
+                        onClick={() =>
+                            changePages(active - 5)}
+                        className='navi_button'
+                    >
+                        {`❮`}
+                    </button>
+
+                    <button className='navi_button'
+                        onClick={() =>
+                            changePages(active + 5)}
+                    >
+                        {` ❯ `}
+                    </button>
+
                 </div>
             </div>
 
@@ -113,22 +110,17 @@ const PTable = ({ props, allList }) => {
                 <thead className=' border-bottom  border-2 border-secondary'>
                     <tr>
                         <th onClick={() => sort('Device_ID')} id='Device_ID'>
-                            Device_ID
+                            Device_ID  <span className='arrow'>↕️</span>
                         </th>
-
                         <th onClick={() => sort('Device_Type')} id='Type'>
-                            Type
+                            Type  <span className='arrow'>↕️</span>
                         </th>
                         <th onClick={() => sort('Time_Stamp')} >
-                            Timestamp
+                            Timestamp  <span className='arrow'>↕️</span>
                         </th>
                         <th onClick={() => sort('Location')} id='Location'>
-                            Location
+                            Location  <span className='arrow'>↕️</span>
                         </th>
-                        <th>
-
-                        </th>
-
                     </tr>
                 </thead>
 
@@ -155,7 +147,7 @@ const PTable = ({ props, allList }) => {
                                     {`/${item.Device_ID}`}
                                 >
                                     <span className='test d-inline-flex align' data-hover=' See Details '>
-                                    <h1 className='hovering '> ➞</h1>
+                                        <h1 className='hovering '> ➞</h1>
                                     </span>
                                 </Link>
                             </td>

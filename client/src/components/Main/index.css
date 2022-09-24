@@ -1,7 +1,7 @@
 
 .maincontainer {
 	text-align: center;
-	color: aliceblue !important;
+	color: aliceblue ;
 	box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
 		0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
 }
@@ -17,7 +17,7 @@
 	border: none;
 	outline: none;
 	padding: 12px 0;
-	background-color: rgb(255, 255, 255);
+	background-color: grey !important;
 	border-radius: 20px;
 	width: 20vw;
 	max-width: 180px;
@@ -26,10 +26,19 @@
 	cursor: pointer;
 }
 
+.signout_btn:hover{
+	z-index: 99;
+	background-color: rgba(255, 0, 0, 0.61) !important;
+	color: #edf5f3;
+}
+
+
 .gpsHeading {
 	padding: 7%;
 
 }
+
+
 
 .table_main {
 	overflow:hidden;
@@ -51,12 +60,25 @@
 	width: fit-content;
 
 }
+.table_main thead th{
+	z-index: 10;
+	cursor: pointer;
+}
+
+.table_main thead th:hover{
+	color: #edf5f3 !important;
+	transform: scale(1.2);
+}
 
 
 .table_main td {
 	color: aliceblue !important;
-	/* max-width: max-content; */
 	width: 100vw;
+}
+
+.arrow{
+font-size: large;
+
 }
 
 .navi{
@@ -70,8 +92,26 @@
 	
 }
 
+input:focus { 
+    /* outline: none !important; */
+    border-color:red !important;
+    box-shadow: 0 0 10px red;
+ }
 
+ .navi_button{
+	background-color: transparent;
+	border: 0;
+	color: white;
+	font-size: 30px;
+ }
 
+ .navi_button:hover{
+	
+	color: red;
+	font-size: 30px;
+	/* shadow: 0 0 10px red; */
+	text-shadow:0 0 10px red ;
+ }
 
 
 .navigate1 td h1{
@@ -98,7 +138,7 @@
 	font-size: 10px;
 	content: attr(data-hover);
 	color: #edf5f3;
-	margin-top: 1.5vh;
+	margin-top: 1.3vh;
 	;
   }
 
