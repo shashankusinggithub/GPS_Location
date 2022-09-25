@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from "react-router-dom";
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import './index.css'
 import axios from 'axios';
 import PTable from './PTable';
 
 const Main = () => {
+
+  const token = localStorage.getItem("token")
+  const headers = {
+      authorization: token
+  }
 
   
   
@@ -14,38 +17,37 @@ const Main = () => {
   
   useEffect(() => {
     setLoading(true)
-    axios.get(`http://localhost:8080/devices`).then((response) => {
-      // setDeviceData(response.data)
+    axios.get(`http://localhost:8080/devices`,{headers}).then((response) => {
       setTemplist(response.data)
-      // setItems(response.data.slice(0, 5))
       setLoading(false)
-      return 'hi'
+      return response
+    }).catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers.pre);
+        if ('jwt' in error.response.data){
+          localStorage.clear()
+          window.location = "/";
+        }
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
     });
   }, []);
 
-
-  const signout = () => {
-    localStorage.clear()
-  }
 
 
 
   return (
     <div className='container'>
-      <Link to="/login">
-        <button type="button" className='signout_btn' onClick={() => signout()}>
-          Sign OUT
-        </button>
-      </Link>
-
       <div className='maincontainer'>
          {!loading && <PTable allList={tempList}/>}
         </div> 
-
-
-      {/* </div> */}
     </div>
-
   )
 }
 

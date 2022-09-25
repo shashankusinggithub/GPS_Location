@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import "./index.css";
 
 const Login = () => {
+
+
 	const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
 
@@ -14,20 +16,19 @@ const Login = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log("run")
+		// console.log("run")
 		try {
-			const { data: res } = await axios.post(`http://localhost:8080/login`, data);
-			console.log(data)
-			console.log(res.data)
-			localStorage.setItem("token", res.data);
+			const {data:resi }= await axios.post(`http://localhost:8080/users/login`, data);
+			localStorage.setItem("token", resi.data);
 			window.location = "/";
 		} catch (error) {
 			if (
 				error.response &&
 				error.response.status >= 400 &&
-				error.response.status <= 500
+				error.response.status < 500
 			) {
 				setError(error.response.data.message);
+				
 			}
 		}
 	};

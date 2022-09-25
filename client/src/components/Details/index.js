@@ -12,6 +12,12 @@ import { VictoryPie } from 'victory';
 // import { Chart as ChartJS, LineController, LineElement, PointElement, LinearScale, Title } from 'chart.js';
 
 const Details = () => {
+
+  const token = localStorage.getItem("token")
+  const headers = {
+      authorization: token
+  }
+
   const [deviceData, setDeviceData] = useState([])
   const [loading, setLoading] = useState([])
 
@@ -43,7 +49,8 @@ const Details = () => {
   }
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/devices/${id}`).then((response) => {
+    axios.get(`http://localhost:8080/devices/${id}`,{headers}).then((response) => {
+      console.log(response)
       setDeviceData(response.data);
       
       return response
@@ -61,6 +68,9 @@ const Details = () => {
             temp[res.data[i].Location] = 1
           }
         }
+
+
+
         let maxi = 0
 
         
@@ -90,26 +100,39 @@ const Details = () => {
         return res
       }
 
-      );
+      ).catch(function (error) {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log(error.response.data);
+      // console.log(error.response.status);
+      // console.log(error.response.headers.pre);
+      if ('jwt' in error.response.data){
+        localStorage.clear()
+        window.location = "/";
+        console.log('sign out')
+      }
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
+  });;
   }, []);
 
 
 
   return (
     <div className='container_details'>
-      <Link to="/login">
-        <button type="button" className='signout_btn' onClick={() => signout()}>
-          Sign OUT
-        </button>
-      </Link>
-
       <div className='maincontainer_details'>
-
         <h1>{id}</h1>
         {!loading && <h1>{deviceData[0].Device_Type}</h1>}
-
         <div className='d-flex'>
-
           <Table responsive hover className="table_details table align-middle" >
             <thead className='table align-middle '>
               <tr>
@@ -127,15 +150,12 @@ const Details = () => {
             <tbody className=''>
               {deviceData.map(item => (
                 <tr >
-
                   <td  >
-
                     {convert(item.Time_Stamp)}
                   </td>
                   <td>
                     {item.Location}
                   </td>
-
                 </tr>
               ))}
 

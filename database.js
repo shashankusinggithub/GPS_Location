@@ -1,11 +1,10 @@
-import dotenv from "dotenv"
-import mysql from "mysql2"
+
 import Joi from "joi"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
-import DB from './db.config'
+import DB from './services/db.config'
 
-dotenv.config()
+
 
 const validateSignup = (data) => {
   const schema = Joi.object({

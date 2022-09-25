@@ -1,33 +1,40 @@
 import jwt from 'jsonwebtoken'
 import asyncHandler from 'express-async-handler'
-import DB  from '../db.config'
+import DB  from '../services/db.config.js'
 
-const protect = asyncHandler(async (req, res, next) => {
+const auth = asyncHandler(async (req, res, next) => {
 
   let token
-
   if (
     req.headers.authorization
-  ) {
-
-    try {
+    ) {
+      
+      try {
+      console.log(req.headers.authorization)
       // Get token from header      
       token = req.headers.authorization
 
       // Verify token
       const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY)
-      const [result] = await DB.query(`SELECT * FROM users 
-      where email = ?`[decoded.email]
-      )
-      // Get user from the token
-      req.email = result
-      console.log(req.email)
+      console.log(decoded, token, 'decoded')
+      const email = decoded.email
+
+      const [user] = await DB.query(`SELECT * FROM users 
+        where email = ?`, [email]
+        )
+      if (!user[0]){
+        throw new Error('Token Not Valid')
+      }
+      console.log(user)
+      
       next()
+      // Get user from the token
+      // req.email = result
 
     } catch (error) {
-      console.log(error)
-      res.status(500)
-      throw new Error('Internal Server Error')
+      console.log(error.message, 'token error')
+      res.status(500).send({jwt:error.message})
+      throw new Error('Internal Server TokenError', error.message)
     }
   }
 
@@ -37,4 +44,4 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 })
 
-module.exports = { protect }
+export default  auth 

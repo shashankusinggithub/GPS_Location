@@ -19,9 +19,9 @@ const Signup = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = `http://localhost:8080/signup`;
+			const url = `http://localhost:8080/users/signup`;
 			const { data: res } = await axios.post(url, data);
-			// navigate("/login");
+			navigate("/login");
 			console.log(res);
 		} catch (error) {
 			if (

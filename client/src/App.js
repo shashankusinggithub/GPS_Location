@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
+import { Route, Routes, Navigate, BrowserRouter, Link } from "react-router-dom";
 
 import Login from './components/Login';
 import Signup from './components/Signup'
@@ -12,9 +12,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   const user = localStorage.getItem("token");
 
+  const signout = () => {
+    localStorage.clear()
+    window.location = "/";
+  }
 
   return (
     <div className='App'>
+  
+       {user && <button type="button" className='signout_btn' onClick={() => signout()}>
+          Sign OUT
+        </button>}
+      
         <BrowserRouter>
 
           <Routes>

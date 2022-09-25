@@ -1,5 +1,4 @@
 .App {
-  /* align-items: center; */
   text-align: center;
   min-height: 85vh;
   width: 85vw;
@@ -10,8 +9,6 @@
   border-style: dotted;
   border-width: 2px;
 }
-
-
 
 .App-logo {
   height: 40vmin;
@@ -37,6 +34,9 @@
 
 .App-link {
   color: #61dafb;
+}
+input{
+  color: aliceblue !important;
 }
 
 @keyframes App-logo-spin {
