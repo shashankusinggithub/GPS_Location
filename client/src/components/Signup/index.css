@@ -1,118 +1,117 @@
 .signup_container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 15%;}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15%;
+}
 
 .signup_form_container {
-	text-align: center;
-	width: 100vw;
-	max-width: 900px;
-	height: 100vh;
-	max-height: 500px;
-	display: flex;
-	border-width: 2px;
-	border-color: gray;
-	border-style: dotted;
-	border-radius: 20px;
-	
+  text-align: center;
+  width: 100vw;
+  max-width: 900px;
+  height: 100vh;
+  max-height: 500px;
+  display: flex;
+  border-width: 2px;
+  border-color: gray;
+  border-style: dotted;
+  border-radius: 20px;
 }
 
 .left {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	border-width: 3px;
-	border-color: gray;
-	border-style: solid;
-	border-left: 0;
-	border-top: 0;
-	border-bottom: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-width: 3px;
+  border-color: gray;
+  border-style: solid;
+  border-left: 0;
+  border-top: 0;
+  border-bottom: 0;
 }
 
 .left h1 {
-	text-align: center;
-	margin-bottom: 50px;
-	color: grey;
-	font-size: 35px;
-	align-self: center;
-	
+  text-align: center;
+  margin-bottom: 50px;
+  color: grey;
+  font-size: 35px;
+  align-self: center;
 }
 
 .right {
-	flex: 2;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	color:#edf5f3;
-	padding: 10%;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #edf5f3;
+  padding: 10%;
 }
 
 .form_container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form_container h1 {
-	font-size: 40px;
-	margin-top: 0;
+  font-size: 40px;
+  margin-top: 0;
 }
 
 .input {
-	outline: none;
-	border: none;
-	width: 50vw;
-	max-width: 370px;
-	padding: 15px;
-	border-radius: 50px;
-	background-color:transparent;
-	margin: 5px 0;
-	font-size: 14px;
-	border-color: grey;
-	border-style:solid;
+  outline: none;
+  border: none;
+  width: 50vw;
+  max-width: 370px;
+  padding: 15px;
+  border-radius: 50px;
+  background-color: transparent;
+  margin: 5px 0;
+  font-size: 14px;
+  border-color: grey;
+  border-style: solid;
 }
 
 .error_msg {
-	width: 370px;
-	padding: 15px;
-	margin: 5px 0;
-	font-size: 14px;
-	background-color: #f34646;
-	color: white;
-	border-radius: 5px;
-	text-align: center;
+  width: 370px;
+  padding: 15px;
+  margin: 5px 0;
+  font-size: 14px;
+  background-color: #f34646;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
 }
 
 .white_btn:hover {
-	color: grey;
-	background-color: #edf5f3;
+  color: grey;
+  background-color: #edf5f3;
 }
 
 .white_btn,
 .green_btn {
-	border: none;
-	outline: none;
-	padding: 12px 0;
-	background-color: grey;
-	color: #edf5f3;
-	border-radius: 20px;
-	width: 20vw;
-	max-width: 180px;
-	font-weight: bold;
-	font-size: 14px;
-	cursor: pointer;
+  border: none;
+  outline: none;
+  padding: 12px 0;
+  background-color: grey;
+  color: #edf5f3;
+  border-radius: 20px;
+  width: 20vw;
+  max-width: 180px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .green_btn {
-	background-color: #e95858d8 ;
-	color: white;
-	margin: 10px;
+  background-color: #e95858d8;
+  color: white;
+  margin: 10px;
 }
 
-.green_btn:hover{
-	background-color: red;
+.green_btn:hover {
+  background-color: red;
 }
