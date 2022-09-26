@@ -125,7 +125,7 @@ const PTable = ({ props, allList }) => {
               Timestamp <span className="arrow">↕️</span>
             </th>
             <th onClick={() => sort("Location")} id="Location">
-              Location <span className="arrow">↕️</span>
+              Latest Location <span className="arrow">↕️</span>
             </th>
           </tr>
         </thead>

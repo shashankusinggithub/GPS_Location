@@ -110,17 +110,18 @@ const Details = () => {
   }, []);
 
   return (
-    <div className="container_details">
       <div className="maincontainer_details">
         <h1>{id}</h1>
-        {!loading && <h1>{deviceData[0].Device_Type}</h1>}
-        <div className="d-flex">
-          <Table responsive hover className="table_details table align-middle">
-            <thead className="table align-middle ">
+        {!loading && <h2>{deviceData[0].Device_Type}</h2>}
+        <div className=" details">
+          <div className="table_div">
+
+          <Table responsive hover cellPadding={20} className="table_details align-middle">
+            <thead className=" align-middle ">
               <tr>
                 <th>Timestamp</th>
 
-                <th>Location</th>
+                <th> Location</th>
               </tr>
             </thead>
 
@@ -133,6 +134,7 @@ const Details = () => {
               ))}
             </tbody>
           </Table>
+          </div>
 
           <div className="stats d-inline-flex">
             <div className="pie_chart ">
@@ -183,7 +185,6 @@ const Details = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
