@@ -1,10 +1,11 @@
 import "./App.css";
-import { Route, Routes, Navigate, BrowserRouter, Link } from "react-router-dom";
+import { Route, Routes, Navigate, BrowserRouter, Link, NotFoundRoute } from "react-router-dom";
 
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Main from "./components/Main";
 import Details from "./components/Details";
+import Error from "./components/Error";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -29,10 +30,10 @@ function App() {
           <Route path="/signup" exact element={<Signup />} />
           <Route path="/login" exact element={<Login />} />
           <Route path="/" element={<Login />} />
-          <Route path="/:id" element={<Details />}>
-            /
-          </Route>
-        </Routes>
+          <Route path="/device/:id" element={<Details />} />
+          <Route path="*" element={<Error />}/>
+
+        </Routes> 
       </BrowserRouter>
     </div>
   );

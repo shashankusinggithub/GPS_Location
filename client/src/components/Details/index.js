@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { Table } from "reactstrap";
 import "./index.css";
 import { VictoryPie } from "victory";
+import PacmanLoader from "react-spinners/RingLoader";
+
 
 const Details = () => {
   const token = localStorage.getItem("token");
@@ -36,12 +38,22 @@ const Details = () => {
     localStorage.clear();
   };
 
+  const override: CSSProperties = {
+    display: "block",
+    margin: "30vh",
+    borderColor: "red",
+    
+  };
+
   useEffect(() => {
     axios
       .get(`http://localhost:8080/devices/${id}`, { headers })
       .then((response) => {
         console.log(response);
         setDeviceData(response.data);
+        if (!response.data[0]){
+          window.location = "/error";
+        }
 
         return response;
       })
@@ -85,9 +97,11 @@ const Details = () => {
         console.log(data);
         setData(data);
         setMaxi(maxi);
-        console.log(data, temp);
-        setLoading(false);
-        return res;
+        
+        setTimeout(() => {
+          setLoading(false)
+        }, 2000);
+        
       })
       .catch(function (error) {
         if (error.response) {
@@ -97,7 +111,7 @@ const Details = () => {
           if ("jwt" in error.response.data) {
             localStorage.clear();
             window.location = "/";
-            console.log("sign out");
+            console.log("sign out not authorised");
           }
         } else if (error.request) {
           console.log(error.request);
@@ -109,7 +123,14 @@ const Details = () => {
       });
   }, []);
 
-  return (
+  return  loading?  <div className='loading'>
+
+    
+  <h1>Hold on Page is Loading...</h1>
+  <PacmanLoader color={'red'} loading={loading} className='loading'
+css={override} size={500} >
+</PacmanLoader>  
+</div> : (
       <div className="maincontainer_details">
         <h1>{id}</h1>
         {!loading && <h2>{deviceData[0].Device_Type}</h2>}

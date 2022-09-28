@@ -1,3 +1,4 @@
+
 CREATE DATABASE gps_monitor;
 
 USE gps_monitor;

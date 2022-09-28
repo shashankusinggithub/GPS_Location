@@ -138,7 +138,7 @@ const PTable = ({ props, allList }) => {
               <td>{convert(item.Time_Stamp)}</td>
               <td>{item.Location}</td>
               <td className="navigate1">
-                <Link className="navi d-inline-flex " to={`/${item.Device_ID}`}>
+                <Link className="navi d-inline-flex " to={`/device/${item.Device_ID}`}>
                   <span
                     className="test d-inline-flex align"
                     data-hover=" See Details "

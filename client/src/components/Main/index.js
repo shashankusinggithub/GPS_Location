@@ -19,6 +19,7 @@ const Main = () => {
     display: "block",
     margin: "30vh",
     borderColor: "red",
+    
   };
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const Main = () => {
         // setLoading(false);
         setTimeout(() => {
           setLoading(false)
-        }, 10000);
+        }, 2000);
         return response;
       })
       .catch(function (error) {
@@ -52,8 +53,14 @@ const Main = () => {
   }, []);
 
   return loading ?
-  <PacmanLoader color={'#36D7B7'} loading={loading}
-css={override} size={150} />  :
+  <div className='loading'>
+
+    
+    <h1>Hold on Page is Loading...</h1>
+    <PacmanLoader color={'red'} loading={loading} className='loading'
+  css={override} size={500} >
+  </PacmanLoader>  
+  </div>:
      ( <div className="maincontainer">
         {!loading && <PTable allList={tempList} />}
       </div>
