@@ -6,7 +6,6 @@ import "./index.css";
 import { VictoryPie } from "victory";
 import PacmanLoader from "react-spinners/RingLoader";
 
-
 const Details = () => {
   const token = localStorage.getItem("token");
   const headers = {
@@ -42,7 +41,6 @@ const Details = () => {
     display: "block",
     margin: "30vh",
     borderColor: "red",
-    
   };
 
   useEffect(() => {
@@ -51,7 +49,7 @@ const Details = () => {
       .then((response) => {
         console.log(response);
         setDeviceData(response.data);
-        if (!response.data[0]){
+        if (!response.data[0]) {
           window.location = "/error";
         }
 
@@ -97,11 +95,10 @@ const Details = () => {
         console.log(data);
         setData(data);
         setMaxi(maxi);
-        
+
         setTimeout(() => {
-          setLoading(false)
+          setLoading(false);
         }, 2000);
-        
       })
       .catch(function (error) {
         if (error.response) {
@@ -123,21 +120,29 @@ const Details = () => {
       });
   }, []);
 
-  return  loading?  <div className='loading'>
-
-    
-  <h1>Hold on Page is Loading...</h1>
-  <PacmanLoader color={'red'} loading={loading} className='loading'
-css={override} size={500} >
-</PacmanLoader>  
-</div> : (
-      <div className="maincontainer_details">
-        <h1>{id}</h1>
-        {!loading && <h2>{deviceData[0].Device_Type}</h2>}
-        <div className=" details">
-          <div className="table_div">
-
-          <Table responsive hover cellPadding={20} className="table_details align-middle">
+  return loading ? (
+    <div className="loading">
+      <h1>Hold on Page is Loading...</h1>
+      <PacmanLoader
+        color={"red"}
+        loading={loading}
+        className="loading"
+        css={override}
+        size={500}
+      ></PacmanLoader>
+    </div>
+  ) : (
+    <div className="maincontainer_details">
+      <h1>{id}</h1>
+      {!loading && <h2>{deviceData[0].Device_Type}</h2>}
+      <div className=" details">
+        <div className="table_div">
+          <Table
+            responsive
+            hover
+            cellPadding={20}
+            className="table_details align-middle"
+          >
             <thead className=" align-middle ">
               <tr>
                 <th>Timestamp</th>
@@ -155,57 +160,57 @@ css={override} size={500} >
               ))}
             </tbody>
           </Table>
+        </div>
+
+        <div className="stats d-inline-flex">
+          <div className="pie_chart ">
+            <VictoryPie
+              className="piechart"
+              height={600}
+              width={600}
+              style={{
+                data: {
+                  fillOpacity: 0.9,
+                  stroke: "white",
+                  strokeWidth: 3,
+                  width: "20vw",
+                },
+              }}
+              data={data}
+              colorScale={["tomato", "orange", "gold", "cyan", "navy"]}
+              animate={{
+                duration: 2000,
+              }}
+              radius={({ datum }) => {
+                let radi = 270 - datum.key * 20;
+                return radi;
+              }}
+            />
           </div>
 
-          <div className="stats d-inline-flex">
-            <div className="pie_chart ">
-              <VictoryPie
-                className="piechart"
-                height={600}
-                width={600}
-                style={{
-                  data: {
-                    fillOpacity: 0.9,
-                    stroke: "white",
-                    strokeWidth: 3,
-                    width: "20vw",
-                  },
-                }}
-                data={data}
-                colorScale={["tomato", "orange", "gold", "cyan", "navy"]}
-                animate={{
-                  duration: 2000,
-                }}
-                radius={({ datum }) => {
-                  let radi = 270 - datum.key * 20;
-                  return radi;
-                }}
-              />
-            </div>
-
-            <div className="legend">
-              <h4> % Time spent on each location </h4>
-              <br></br>
-              {data.map((item) => {
-                console.log(item);
-                return (
-                  <div className="d-flex flex-row align-middle label_all ">
-                    <div
-                      style={{ backgroundColor: item.color }}
-                      className="dots mr-3"
-                    >
-                      {" "}
-                    </div>
-                    <h1 style={{ color: "white" }} className="ml-2 px-2 lable">
-                      {item.x}
-                    </h1>
+          <div className="legend">
+            <h4> % Time spent on each location </h4>
+            <br></br>
+            {data.map((item) => {
+              console.log(item);
+              return (
+                <div className="d-flex flex-row align-middle label_all ">
+                  <div
+                    style={{ backgroundColor: item.color }}
+                    className="dots mr-3"
+                  >
+                    {" "}
                   </div>
-                );
-              })}
-            </div>
+                  <h1 style={{ color: "white" }} className="ml-2 px-2 lable">
+                    {item.x}
+                  </h1>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
+    </div>
   );
 };
 

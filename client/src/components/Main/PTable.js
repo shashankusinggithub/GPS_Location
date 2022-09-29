@@ -12,7 +12,7 @@ const PTable = ({ props, allList }) => {
 
   const changePages = (page) => {
     console.log(page);
-    if (page >= 0 && page < tempList.length + 1) {
+    if (page >= 0 && page < tempList.length ) {
       setActive(page);
       // console.log(tempList.slice(page, page + 5))
       setItems(tempList.slice(page, page + 5));
@@ -31,26 +31,27 @@ const PTable = ({ props, allList }) => {
   };
 
   const sort = (name) => {
-    console.log(name, activeSort, tempList[0].name);
-    console.log(tempList[0][name]);
+    // console.log(name, activeSort, tempList[0].name);
+    console.log(tempList);
+    let temp = tempList;
     if (name === activeSort) {
-      let temp = tempList.reverse();
-      setTemplist(temp);
-      setItems(temp.slice(active, active + 5));
+      temp.sort((a, b) => (a[name] < b[name] ? 1 : -1));
+      setActiveSort('')
+
     } else {
-      let temp = tempList;
       temp.sort((a, b) => (a[name] < b[name] ? -1 : 1));
-      console.log(temp[0][name], temp[5][name], temp[0][name] > temp[5][name]);
-      console.table(temp);
+      setActiveSort(name)
+    }
       setTemplist(temp);
       setItems(temp.slice(active, active + 5));
-    }
-    setActiveSort(name);
+    
+    ;
   };
 
-  const handleChange = (e) => {
+  const handleChange =  (e) => {
     setName(e.target.value);
-    console.log(name, e.target.value);
+    setActive(0)
+
     if (e.target.value) {
       setTemplist((list) => {
         let temp = allList.filter(
@@ -63,13 +64,19 @@ const PTable = ({ props, allList }) => {
               .includes(e.target.value.toLowerCase())
         );
         setItems(temp.slice(active, active + 5));
+        if (temp.length === 0){
+          setItems([{ID: 2, Device_ID: 'Not Found', Device_Type: 'Not Found', Time_Stamp: 'NaN', Location: 'Not Found'}])
+        }
+        
         return temp;
       });
     } else {
       setTemplist(allList);
       setItems(allList.slice(active, active + 5));
-      return;
+      
     }
+
+    
   };
 
   return (
@@ -111,7 +118,7 @@ const PTable = ({ props, allList }) => {
         responsive
         bordered={false}
         hover
-        className="table_main align-middle"
+        className="table_main align-middle "
       >
         <thead className=" border-bottom  border-2 border-secondary">
           <tr>
@@ -138,14 +145,14 @@ const PTable = ({ props, allList }) => {
               <td>{convert(item.Time_Stamp)}</td>
               <td>{item.Location}</td>
               <td className="navigate1">
-                <Link className="navi d-inline-flex " to={`/device/${item.Device_ID}`}>
+                {(item.Time_Stamp !== 'NaN') && <Link className="navi d-inline-flex " to={`/device/${item.Device_ID}`}>
                   <span
                     className="test d-inline-flex align"
                     data-hover=" See Details "
                   >
                     <h1 className="hovering "> ➞</h1>
                   </span>
-                </Link>
+                </Link>}
               </td>
             </tr>
           ))}

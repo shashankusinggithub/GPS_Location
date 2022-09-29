@@ -47,6 +47,10 @@
   font-size: x-large;
   border-color: gray;
   align-items: center;
+  width: 50vw;
+}
+.table_main {
+  width: 2000px;
 }
 
 .table_main th {

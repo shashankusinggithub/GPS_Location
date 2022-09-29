@@ -12,6 +12,7 @@ async function deviceData(data) {
 
 async function allData() {
   const [result] = await DB.query(`SELECT * FROM gps_locations; `);
+  console.log(result)
   return result;
 }
 
