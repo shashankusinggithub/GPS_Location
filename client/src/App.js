@@ -31,7 +31,7 @@ function App() {
           <Route path="/login" exact element={<Login />} />
           <Route path="/" element={<Login />} />
           <Route path="/device/:id" element={<Details />} />
-          <Route path="*" element={<Error />}/>
+         <Route path="*" element={<Error />}/>
 
         </Routes> 
       </BrowserRouter>
