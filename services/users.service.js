@@ -25,12 +25,12 @@ async function loginUser(data) {
   try {
     const { error } = validateLogin(data);
     if (error) return { http: 400, message: error.details[0].message };
-
+    
     const [user] = await DB.query(
       `SELECT * FROM users 
-            where email = ?`,
+      where email = ?`,
       [data.email]
-    );
+      );
     if (!user[0]) return { http: 401, message: "Invalid Email or Password" };
 
     let pass1 = user[0].password;

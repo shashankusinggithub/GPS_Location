@@ -11,5 +11,4 @@ const DB = mysql
     database: process.env.MYSQL_DB,
   })
   .promise();
-
 export default DB;

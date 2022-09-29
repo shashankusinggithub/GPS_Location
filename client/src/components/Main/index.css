@@ -1,5 +1,5 @@
 .maincontainer {
-  padding: 5%  15%;
+  padding: 0  10%;
   text-align: center;
   color: aliceblue;
 
@@ -61,7 +61,7 @@
 }
 
 .table_main td {
-height: 100px;
+height: 75px;
 }
 
 

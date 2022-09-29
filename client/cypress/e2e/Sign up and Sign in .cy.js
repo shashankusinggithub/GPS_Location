@@ -15,13 +15,8 @@ describe('APP Component', ()=> {
         cy.contains('GPS').should('be.visible')
     })
 
-    // it('Sign in not successfull', () => {
-    //     cy.get('[type="email"]').type('shashank.chut@gmail.com')
-    //     cy.get('[type="password"]').type('R!nkj05')
-    //     // cy.get('[type="password"]').should('have.value', 'R!nkuj05')
-    //     cy.get('.green_btn').click()
-    //     cy.get('.error_msg').should('be.visible')
-    // })
+
+    
 
     // // need to change the email id every time before testing
 

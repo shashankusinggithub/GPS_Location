@@ -2,6 +2,7 @@ import * as users from "../services/users.service.js";
 
 async function login(req, res, next) {
   try {
+    console.log(req.body)
     const temp = await users.loginUser(req.body);
     res.status(temp.http).send(temp);
   } catch (error) {
