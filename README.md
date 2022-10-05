@@ -237,7 +237,7 @@ npx cypress open
 -Configure it and select the appropriate browser
 
 ## Front End ( React.js ) Unit Tests
-Just enter the following commands in the terminal and cypress runs the unit tests and displays the result in the terminal
+
 
 <b>Open './client/cypress/e2e/Sign up and Sign in .cy.js' </b>
 - Change the variables accordingly
@@ -251,6 +251,7 @@ Just enter the following commands in the terminal and cypress runs the unit test
 ```
 - Or comment out the first test <b> 'Sign up Successfull' </b> to stop the test from creating the test again and again
 
+  Just enter the following commands in the terminal and cypress runs the unit tests and displays the result in the terminal.
 
 ```md
 cd
