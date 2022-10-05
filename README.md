@@ -67,7 +67,7 @@ npm i dependencies
 CREATE DATABASE gps_monitor;
 
   
-
+USE gps_monitor;
 CREATE TABLE users (
 
 ID int NOT NULL AUTO_INCREMENT,
