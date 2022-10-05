@@ -239,6 +239,19 @@ npx cypress open
 ## Front End ( React.js ) Unit Tests
 Just enter the following commands in the terminal and cypress runs the unit tests and displays the result in the terminal
 
+<b>Open './client/cypress/e2e/Sign up and Sign in .cy.js' </b>
+- Change the variables accordingly
+```
+    const first_name = 'first'
+    const last_name = 'last'
+    const email = 'abcd@gmail.com'
+    const password = '123456'
+    const wrong_password = 'akjdfhskdj'
+
+```
+- Or comment out the first test <b> 'Sign up Successfull' </b> to stop the test from creating the test again and again
+
+
 ```md
 cd
 cd ./client
