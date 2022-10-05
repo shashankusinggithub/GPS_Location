@@ -15,7 +15,7 @@ This is a full stack application to store the GPS data of the devices and provid
 
 - Techologies used for this project are
 
--- React | Node.js | Express.js | MySQL
+- React | Node.js | Express.js | MySQL
 
   
   
@@ -251,7 +251,7 @@ npx cypress open
 ```
 - Or comment out the first test <b> 'Sign up Successfull' </b> to stop the test from creating the test again and again
 
-  Just enter the following commands in the terminal and cypress runs the unit tests and displays the result in the terminal.
+Just enter the following commands in the terminal and cypress runs the unit tests and displays the result in the terminal.
 
 ```md
 cd
