@@ -2,6 +2,10 @@
 import "cypress-localstorage-commands";
 
 context("Actions", () => {
+  
+  const email = 'abcd@gmail.com'
+  const password = '123456'
+  
   before(() => {
     cy.clearLocalStorageSnapshot();
   });
@@ -16,8 +20,8 @@ context("Actions", () => {
 
   it("Sign in Successful ", () => {
     cy.visit("http://localhost:3000");
-    cy.get('[type="email"]').type("shashank.chutke@gmail.com");
-    cy.get('[type="password"]').type("R!nkuj05");
+    cy.get('[type="email"]').type(email);
+    cy.get('[type="password"]').type(password);
     cy.get('[type="password"]').should("have.value", "R!nkuj05");
     cy.contains("Sign In").click();
     cy.contains("GPS").should("be.visible");
