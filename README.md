@@ -251,6 +251,15 @@ npx cypress open
 ```
 - Or comment out the first test <b> 'Sign up Successfull' </b> to stop the test from creating the test again and again
 
+
+<b>Open './client/cypress/e2e/tableCheck.cy.js' </b>
+- Change the variables accordingly
+```
+    const email = 'abcd@gmail.com'
+    const password = '123456'
+
+```
+
 Just enter the following commands in the terminal and cypress runs the unit tests and displays the result in the terminal.
 
 ```md
