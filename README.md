@@ -100,6 +100,8 @@ Location varchar(20) NOT NULL,
 
 PRIMARY KEY(ID)
 
+FULLTEXT(Device_ID, Device_Type)
+
 );
 
   
