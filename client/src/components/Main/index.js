@@ -14,6 +14,8 @@ const Main = () => {
 
   const [tempList, setTemplist] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [count, setCount] = useState(0)
+
 
   const override: CSSProperties = {
     display: "block",
@@ -27,8 +29,8 @@ const Main = () => {
     axios
       .get(`http://localhost:8080/devices`, { headers })
       .then((response) => {
-        setTemplist(response.data);
-        // setLoading(false);
+        setTemplist(response.data.result);
+        setCount(response.data.count)
         setTimeout(() => {
           setLoading(false)
         }, 2000);
@@ -62,7 +64,7 @@ const Main = () => {
   </PacmanLoader>  
   </div>:
      ( <div className="maincontainer">
-        {!loading && <PTable allList={tempList} />}
+        {!loading && <PTable allList={tempList} counter={count} />}
       </div>
   );
 };

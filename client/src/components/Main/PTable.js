@@ -2,20 +2,30 @@ import React, { useState } from "react";
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
 import "./index.css";
+import axios from "axios";
 
-const PTable = ({ props, allList }) => {
-  const [tempList, setTemplist] = useState(allList);
-  const [items, setItems] = useState(allList.slice(0, 5));
-  const [activeSort, setActiveSort] = useState("");
-  const [active, setActive] = useState(0);
-  const [name, setName] = useState("");
+const PTable = ({ props, allList, counter }) => {
+  const token = localStorage.getItem("token");
+  const headers = {
+    authorization: token,
+  };
+
+  const [items, setItems] = useState(allList);
+  const [activeSort, setActiveSort] = useState(""); // active colum active
+  const [active, setActive] = useState(0); // pages number
+  const [search, setSearch] = useState("");
+  const [count, setCount] = useState(counter);
+  const [defaultSort, setDefaultSort] = useState("Device_ID");
 
   const changePages = (page) => {
-    console.log(page);
-    if (page >= 0 && page < tempList.length ) {
+    console.log(page, items);
+
+    if (page >= 0 && page < count) {
       setActive(page);
-      // console.log(tempList.slice(page, page + 5))
-      setItems(tempList.slice(page, page + 5));
+      let order = activeSort === "" ? "DESC" : "ASC";
+      modify(search, page, defaultSort, order);
+    } else {
+      return;
     }
   };
 
@@ -31,52 +41,57 @@ const PTable = ({ props, allList }) => {
   };
 
   const sort = (name) => {
-    // console.log(name, activeSort, tempList[0].name);
-    console.log(tempList);
-    let temp = tempList;
+    console.log(name);
     if (name === activeSort) {
-      temp.sort((a, b) => (a[name] < b[name] ? 1 : -1));
-      setActiveSort('')
-
+      modify(search, active, name, "DESC");
+      setActiveSort("");
     } else {
-      temp.sort((a, b) => (a[name] < b[name] ? -1 : 1));
-      setActiveSort(name)
+      modify(search, active, name, "ASC");
+      setActiveSort(name);
     }
-      setTemplist(temp);
-      setItems(temp.slice(active, active + 5));
-    
-    ;
+    setDefaultSort(name);
   };
 
-  const handleChange =  (e) => {
-    setName(e.target.value);
-    setActive(0)
+  const modify = async (data, page, order, sorting) => {
+    setActive(page);
+    await axios
+      .post(
+        `http://localhost:8080/devices/search`,
+        {
+          data: `%${data}%`,
+          pageStart: page,
+          sorting: sorting,
+          order: order,
+        },
+        { headers }
+      )
+      .then((res) => {
+        console.log(res.data.result);
+        setItems(res.data.result);
+        setCount(res.data.count);
 
-    if (e.target.value) {
-      setTemplist((list) => {
-        let temp = allList.filter(
-          (item) =>
-            item["Device_Type"]
-              .toLowerCase()
-              .includes(e.target.value.toLowerCase()) ||
-            item["Device_ID"]
-              .toLowerCase()
-              .includes(e.target.value.toLowerCase())
-        );
-        setItems(temp.slice(active, active + 5));
-        if (temp.length === 0){
-          setItems([{ID: 2, Device_ID: 'Not Found', Device_Type: 'Not Found', Time_Stamp: 'NaN', Location: 'Not Found'}])
+        if (res.data.result.length === 0) {
+          setItems([
+            {
+              ID: 2,
+              Device_ID: "Not Found",
+              Device_Type: "Not Found",
+              Time_Stamp: "NaN",
+              Location: "Not Found",
+            },
+          ]);
         }
-        
-        return temp;
       });
-    } else {
-      setTemplist(allList);
-      setItems(allList.slice(active, active + 5));
-      
-    }
+  };
 
-    
+  const handleChange = async (e) => {
+    setSearch(e.target.value);
+    setActive(0);
+    if (e.target.value) {
+      modify(e.target.value, 0, defaultSort, "ASC");
+    } else {
+      modify("", 0, defaultSort, "ASC");
+    }
   };
 
   return (
@@ -86,15 +101,13 @@ const PTable = ({ props, allList }) => {
         <input
           placeholder="Search by DeviceID / Type"
           onChange={handleChange}
-          value={name}
+          value={search}
           type="text"
           className="border border-light text-center rounded-pill bg-transparent text-white"
         ></input>
         <div className="d-inline-flex  align-middle ">
           <h5 className="mx-5 mt-3">
-            {active} -{" "}
-            {active + 5 < tempList.length ? active + 5 : tempList.length} of{" "}
-            {tempList.length}{" "}
+            {active} - {active + 5 < count ? active + 5 : count} of {count}{" "}
           </h5>
 
           <button
@@ -122,17 +135,56 @@ const PTable = ({ props, allList }) => {
       >
         <thead className=" border-bottom  border-2 border-secondary">
           <tr>
-            <th onClick={() => sort("Device_ID")} id="Device_ID">
-              Device_ID <span className="arrow">↕️</span>
+            <th
+              onClick={() => sort("Device_ID")}
+              id="Device_ID"
+              className={defaultSort === "Device_ID" ? "activeHead" : ""}
+            >
+              Device_ID
+              {defaultSort === "Device_ID" &&
+                (activeSort === "Device_ID" ? (
+                  <span className="arrow">⬇</span>
+                ) : (
+                  <span className="arrow">⬆</span>
+                ))}
             </th>
-            <th onClick={() => sort("Device_Type")} id="Type">
-              Type <span className="arrow">↕️</span>
+            <th
+              onClick={() => sort("Device_Type")}
+              id="Type"
+              className={defaultSort === "Device_Type" ? "activeHead" : ""}
+            >
+              Type
+              {defaultSort === "Device_Type" &&
+                (activeSort === "Device_Type" ? (
+                  <span className="arrow">⬇</span>
+                ) : (
+                  <span className="arrow">⬆</span>
+                ))}
             </th>
-            <th onClick={() => sort("Time_Stamp")}>
-              Timestamp <span className="arrow">↕️</span>
+            <th
+              onClick={() => sort("Time_Stamp")}
+              className={defaultSort === "Time_Stamp" ? "activeHead" : ""}
+            >
+              Timestamp
+              {defaultSort === "Time_Stamp" &&
+                (activeSort === "Time_Stamp" ? (
+                  <span className="arrow">⬇</span>
+                ) : (
+                  <span className="arrow">⬆</span>
+                ))}
             </th>
-            <th onClick={() => sort("Location")} id="Location">
-              Latest Location <span className="arrow">↕️</span>
+            <th
+              onClick={() => sort("Location")}
+              id="Location"
+              className={defaultSort === "Location" ? "activeHead" : ""}
+            >
+              Latest Location
+              {defaultSort === "Location" &&
+                (activeSort === "Location" ? (
+                  <span className="arrow">⬇</span>
+                ) : (
+                  <span className="arrow">⬆</span>
+                ))}
             </th>
           </tr>
         </thead>
@@ -145,14 +197,19 @@ const PTable = ({ props, allList }) => {
               <td>{convert(item.Time_Stamp)}</td>
               <td>{item.Location}</td>
               <td className="navigate1">
-                {(item.Time_Stamp !== 'NaN') && <Link className="navi d-inline-flex " to={`/device/${item.Device_ID}`}>
-                  <span
-                    className="test d-inline-flex align"
-                    data-hover=" See Details "
+                {item.Time_Stamp !== "NaN" && (
+                  <Link
+                    className="navi d-inline-flex "
+                    to={`/device/${item.Device_ID}`}
                   >
-                    <h1 className="hovering "> ➞</h1>
-                  </span>
-                </Link>}
+                    <span
+                      className="test d-inline-flex align-center"
+                      data-hover=" See Details "
+                    >
+                      <h1 className="hovering "> ➞</h1>
+                    </span>
+                  </Link>
+                )}
               </td>
             </tr>
           ))}

@@ -33,9 +33,7 @@ const Details = () => {
     return newdate;
   };
 
-  const signout = () => {
-    localStorage.clear();
-  };
+
 
   const override: CSSProperties = {
     display: "block",
@@ -45,7 +43,7 @@ const Details = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/devices/${id}`, { headers })
+      .get(`http://localhost:8080/devices/device/${id}`, { headers })
       .then((response) => {
         console.log(response);
         setDeviceData(response.data);
