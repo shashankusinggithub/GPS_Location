@@ -105,4 +105,5 @@ VALUES ('D-1567', 'Aircraft', '2022-08-31 10:05:00', 'L1'),
 -- ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
 
 use gps_monitor;
-select * from gps_locations;
+select * from gps_locations
+order by Device_Type asc;

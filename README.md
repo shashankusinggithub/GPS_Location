@@ -48,9 +48,6 @@ git clone https://github.com/shashankusinggithub/Gps_Location.git
 
 npm i dependencies
 
-cd ./client
-
-npm i dependencies
 
 ```
 
