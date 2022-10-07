@@ -36,22 +36,22 @@
   color: #edf5f3;
 }
 
-.gpsHeading {
-  padding: 7%;
+.gpsHeading h1{
+  /* padding: 7%; */
+  text-align: left;
 }
 
 
 .table_main {
   overflow: hidden;
-  margin-top: 100px;
+  margin-top:2.5vmax;
+  /* margin-top:2rem; */
+  
   display: block;
   font-size: x-large;
   border-color: gray;
   align-items: center;
   width: 50vw;
-}
-.table_main {
-  width: 2000px;
 }
 
 .table_main th {

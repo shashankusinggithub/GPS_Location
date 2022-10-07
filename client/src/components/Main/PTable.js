@@ -57,7 +57,7 @@ const PTable = ({ props, allList, counter , setLoading}) => {
     var year = dateObj.getUTCFullYear();
     var hours = dateObj.getUTCHours();
     var mins = dateObj.getUTCMinutes();
-    let newdate = day + "-" + month + "-" + year + " " + hours + ":" + mins;
+    let newdate = (day<=9 ? "0" + day:day) + "-" + (month<=9 ? "0" + month:month) + "-" + (year<=9 ? "0" + year:year) + " " + (hours<=9 ? "0" + hours:hours) + ":" + (mins<=9 ? "0" + mins:mins);
     return newdate;
   };
 
