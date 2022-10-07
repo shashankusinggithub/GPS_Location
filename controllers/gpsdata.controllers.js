@@ -10,15 +10,7 @@ async function deviceData(req, res, next) {
   }
 }
 
-async function allData(req, res, next) {
-  try {
 
-    res.json(await gpsdata.allData());
-  } catch (err) {
-    console.error(`Error while fetching gps locations`, err.message);
-    next(err);
-  }
-}
 
 async function searchData(req, res, next) {
   try {
@@ -30,4 +22,4 @@ async function searchData(req, res, next) {
   }
 }
 
-export { deviceData, allData, searchData };
+export { deviceData,  searchData };

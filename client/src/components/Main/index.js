@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PacmanLoader from "react-spinners/RingLoader";
 import "./index.css";
-import axios from "axios";
 import PTable from "./PTable";
-import ClipLoader from "react-spinners/ClipLoader";
 
 
 const Main = () => {
@@ -26,30 +24,11 @@ const Main = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`http://localhost:8080/devices`, { headers })
-      .then((response) => {
-        setTemplist(response.data.result);
-        setCount(response.data.count)
+    
         setTimeout(() => {
           setLoading(false)
         }, 2000);
-        return response;
-      })
-      .catch(function (error) {
-        if (error.response) {
-          console.log(error.response.data);
-          if ("jwt" in error.response.data) {
-            localStorage.clear();
-            window.location = "/";
-          }
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
-      });
+        
   }, []);
 
   return loading ?

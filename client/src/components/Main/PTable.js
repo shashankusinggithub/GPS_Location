@@ -10,7 +10,7 @@ const PTable = ({ props, allList, counter , setLoading}) => {
     authorization: token,
   };
 
-  const [items, setItems] = useState(allList);
+  const [items, setItems] = useState([]);
   const [activeSort, setActiveSort] = useState(""); // active colum active
   const [active, setActive] = useState(0); // pages number
   const [search, setSearch] = useState("");
@@ -19,7 +19,8 @@ const PTable = ({ props, allList, counter , setLoading}) => {
 
   useEffect(()=> {
 
-    modify(search, 0, defaultSort, "ASC")
+     modify(search, 0, defaultSort, "ASC")
+     console.log('hi')
   }, [])
 
   const errorHandle = (error) => {
@@ -133,7 +134,7 @@ const PTable = ({ props, allList, counter , setLoading}) => {
             {active} - {active + 5 < count ? active + 5 : count} of {count}{" "}
           </h5>
 
-          <button
+         {count > 5 && <><button
             previous
             onClick={() => changePages(active - 5)}
             className="navi_button"
@@ -146,7 +147,7 @@ const PTable = ({ props, allList, counter , setLoading}) => {
             onClick={() => changePages(active + 5)}
           >
             {` ❯ `}
-          </button>
+          </button> </> }
         </div>
       </div>
 
