@@ -39,8 +39,6 @@ const Main = () => {
       .catch(function (error) {
         if (error.response) {
           console.log(error.response.data);
-          // console.log(error.response.status);
-          // console.log(error.response.headers.pre);
           if ("jwt" in error.response.data) {
             localStorage.clear();
             window.location = "/";
@@ -64,7 +62,7 @@ const Main = () => {
   </PacmanLoader>  
   </div>:
      ( <div className="maincontainer">
-        {!loading && <PTable allList={tempList} counter={count} />}
+        {!loading && <PTable allList={tempList} counter={count} setLoading={setLoading} />}
       </div>
   );
 };

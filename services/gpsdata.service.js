@@ -13,7 +13,7 @@ async function deviceData(data) {
 async function allData() {
   await DB.query(`SET sql_mode = 'PAD_CHAR_TO_FULL_LENGTH'`)
   await DB.query(`
-  create TEMPORARY table new_table 
+  create TEMPORARY table IF NOT EXISTS new_table 
   (select ID, Device_ID,Device_Type, max(Time_Stamp) as "Time_Stamp",Location from gps_locations
   group by Device_ID
   order by Device_ID desc
@@ -21,7 +21,7 @@ async function allData() {
    `);
    const [result] = await DB.query(`select * from new_table limit 5`)
   const [count] = await DB.query(`SELECT count(ID) FROM new_table; `);
-  await DB.query(`  drop TEMPORARY table new_table; `)
+  // await DB.query(`  drop TEMPORARY table new_table; `)
   console.log(result)
   return {result, count:count[0]['count(ID)']};
 }
@@ -35,7 +35,7 @@ async function searchData(data) {
   console.log(order, sorting)
   
   await DB.query(`
-  create TEMPORARY table new_table 
+  create TEMPORARY table IF NOT EXISTS new_table 
   (select ID, Device_ID,Device_Type, max(Time_Stamp) as "Time_Stamp",Location from gps_locations
   where 
   Device_ID like ? or 
@@ -46,7 +46,7 @@ async function searchData(data) {
    
   const [result] = await DB.query(`select * from new_table limit ?,5`,[pageStart])
   const [count] = await DB.query(`SELECT count(ID) FROM new_table; `);
-  await DB.query(`  drop TEMPORARY table new_table; `)
+  // await DB.query(`  drop TEMPORARY table new_table; `)
 
   console.log(result.at(-1), count[0]['count(ID)'])
   return {result, count:count[0]['count(ID)']};

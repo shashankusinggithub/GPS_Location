@@ -4,13 +4,11 @@ import { Link } from "react-router-dom";
 import "./index.css";
 import axios from "axios";
 
-const PTable = ({ props, allList, counter }) => {
+const PTable = ({ props, allList, counter , setLoading}) => {
   const token = localStorage.getItem("token");
   const headers = {
     authorization: token,
   };
-
-  
 
   const [items, setItems] = useState(allList);
   const [activeSort, setActiveSort] = useState(""); // active colum active
@@ -18,6 +16,26 @@ const PTable = ({ props, allList, counter }) => {
   const [search, setSearch] = useState("");
   const [count, setCount] = useState(counter);
   const [defaultSort, setDefaultSort] = useState("Device_ID");
+
+  useEffect(()=> {
+
+    modify(search, 0, defaultSort, "ASC")
+  }, [])
+
+  const errorHandle = (error) => {
+    if (error.response) {
+      console.log(error.response.data);
+      if ("jwt" in error.response.data) {
+        localStorage.clear();
+        window.location = "/";
+      }
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
+    console.log(error.config);
+  };
 
   const changePages = (page) => {
     console.log(page, items);
@@ -83,6 +101,9 @@ const PTable = ({ props, allList, counter }) => {
             },
           ]);
         }
+      })
+      .catch(function (error) {
+        errorHandle(error);
       });
   };
 

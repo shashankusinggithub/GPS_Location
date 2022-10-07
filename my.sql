@@ -110,13 +110,13 @@ VALUES ('D-1567', 'Aircraft', '2022-08-31 10:05:00', 'L1'),
 -- select * from gps_locations
 -- order by Device_Type asc;
 
--- SET sql_mode = 'PAD_CHAR_TO_FULL_LENGTH';
+SET sql_mode = 'PAD_CHAR_TO_FULL_LENGTH';
 
 -- -- drop TEMPORARY table new_table
 
--- create TEMPORARY table new_table 
--- (select ID, Device_ID,Device_Type, max(Time_Stamp) as "Time_Stamp",Location from gps_locations
--- group by Device_ID
--- order by Device_ID desc);
+create TEMPORARY  table IF NOT EXISTS new_table 
+(select ID, Device_ID,Device_Type, max(Time_Stamp) as "Time_Stamp",Location from gps_locations
+group by Device_ID
+order by Device_ID desc);
 
--- select * from new_table;
+select * from new_table;
