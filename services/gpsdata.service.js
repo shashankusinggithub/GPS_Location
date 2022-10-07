@@ -11,32 +11,42 @@ async function deviceData(data) {
 }
 
 async function allData() {
-  const [result] = await DB.query(`SELECT * FROM gps_locations limit 5; `);
-  const [count] = await DB.query(`SELECT count(ID) FROM gps_locations; `);
+  await DB.query(`SET sql_mode = 'PAD_CHAR_TO_FULL_LENGTH'`)
+  await DB.query(`
+  create TEMPORARY table new_table 
+  (select ID, Device_ID,Device_Type, max(Time_Stamp) as "Time_Stamp",Location from gps_locations
+  group by Device_ID
+  order by Device_ID desc
+  );
+   `);
+   const [result] = await DB.query(`select * from new_table limit 5`)
+  const [count] = await DB.query(`SELECT count(ID) FROM new_table; `);
+  await DB.query(`  drop TEMPORARY table new_table; `)
+  console.log(result)
   return {result, count:count[0]['count(ID)']};
 }
 
 async function searchData(data) {
+  await DB.query(`SET sql_mode = 'PAD_CHAR_TO_FULL_LENGTH'`)
   let query = data.data
   let pageStart = data.pageStart
   let order = String(data.order)
   let sorting = String(data.sorting)
   console.log(order, sorting)
-
-  const [result] = await DB.query(`select *
-  from gps_locations where 
+  
+  await DB.query(`
+  create TEMPORARY table new_table 
+  (select ID, Device_ID,Device_Type, max(Time_Stamp) as "Time_Stamp",Location from gps_locations
+  where 
   Device_ID like ? or 
   Device_Type  like ? 
+  group by Device_ID
   ORDER BY ${order} ${sorting}
-  limit ?,5;
-  ; `, [query, query, pageStart]);
-
-  const [count] = await DB.query(`select count(ID)
-  from gps_locations where 
-  Device_ID like ? or 
-  Device_Type  like ? ;
-  
-  `, [query, query]);
+  ); `, [query, query]);
+   
+  const [result] = await DB.query(`select * from new_table limit ?,5`,[pageStart])
+  const [count] = await DB.query(`SELECT count(ID) FROM new_table; `);
+  await DB.query(`  drop TEMPORARY table new_table; `)
 
   console.log(result.at(-1), count[0]['count(ID)'])
   return {result, count:count[0]['count(ID)']};

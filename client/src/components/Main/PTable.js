@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "reactstrap";
 import { Link } from "react-router-dom";
 import "./index.css";
@@ -9,6 +9,8 @@ const PTable = ({ props, allList, counter }) => {
   const headers = {
     authorization: token,
   };
+
+  
 
   const [items, setItems] = useState(allList);
   const [activeSort, setActiveSort] = useState(""); // active colum active

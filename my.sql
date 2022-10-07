@@ -47,6 +47,8 @@ INSERT INTO gps_locations (Device_ID, Device_Type, Time_Stamp, Location)
 
 VALUES ('D-1567', 'Aircraft', '2022-08-31 10:05:00', 'L1'),
 
+('D-1577', 'Aircraft', '2022-08-31 11:05:00', 'L6'),
+
 ('D-1567', 'Aircraft', '2022-08-31 10:10:00', 'L1'),
 
 ('D-1567', 'Aircraft', '2022-08-31 10:15:00', 'L1'),
@@ -104,6 +106,17 @@ VALUES ('D-1567', 'Aircraft', '2022-08-31 10:05:00', 'L1'),
 
 -- ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
 
-use gps_monitor;
-select * from gps_locations
-order by Device_Type asc;
+-- use gps_monitor;
+-- select * from gps_locations
+-- order by Device_Type asc;
+
+-- SET sql_mode = 'PAD_CHAR_TO_FULL_LENGTH';
+
+-- -- drop TEMPORARY table new_table
+
+-- create TEMPORARY table new_table 
+-- (select ID, Device_ID,Device_Type, max(Time_Stamp) as "Time_Stamp",Location from gps_locations
+-- group by Device_ID
+-- order by Device_ID desc);
+
+-- select * from new_table;
