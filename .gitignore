@@ -10,6 +10,7 @@ client/node_modules/*
 /build
 
 # misc
+.env
 .DS_Store
 .env.local
 .env.development.local
@@ -19,3 +20,18 @@ client/node_modules/*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+cypress/screenshots/API.cy.js/API testing -- fetch all loations of devices (failed).png
+cypress/screenshots/API.cy.js/API testing -- fetch detials about a specific device D-1567 (failed).png
+cypress/screenshots/API.cy.js/API testing -- fetch detials about device that does not exit (failed).png
+client/cypress/videos/tableCheck.cy.js.mp4
+client/cypress/videos/Sign up and Sign in .cy.js.mp4
+client/cypress/screenshots/tableCheck.cy.js/Actions -- Table visible (failed).png
+client/cypress/screenshots/tableCheck.cy.js/Actions -- Sorting of Device Type (failed).png
+client/cypress/screenshots/tableCheck.cy.js/Actions -- Sign in Successful (failed).png
+client/cypress/screenshots/tableCheck.cy.js/Actions -- Searching of Device (failed).png
+client/cypress/screenshots/tableCheck.cy.js/Actions -- Searching of Device (failed) (1).png
+client/cypress/screenshots/tableCheck.cy.js/Actions -- Pagination see previous pages (failed).png
+client/cypress/screenshots/tableCheck.cy.js/Actions -- paganition see next pages (failed).png
+client/cypress/videos/Sign up and Sign in .cy.js.mp4
+client/cypress/videos/tableCheck.cy.js.mp4
+client/cypress/videos/Sign up and Sign in .cy.js.mp4

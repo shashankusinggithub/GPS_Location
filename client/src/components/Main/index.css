@@ -36,27 +36,28 @@
   color: #edf5f3;
 }
 
-.gpsHeading {
-  padding: 7%;
+.gpsHeading h1{
+  /* padding: 7%; */
+  text-align: left;
 }
+
 
 .table_main {
   overflow: hidden;
-  margin-top: 100px;
+  margin-top:2.5vmax;
+  /* margin-top:2rem; */
+  
   display: block;
   font-size: x-large;
   border-color: gray;
   align-items: center;
   width: 50vw;
 }
-.table_main {
-  width: 2000px;
-}
 
 .table_main th {
   border-color: gray;
   font-size: medium;
-  color: grey !important;
+  color: grey ;
   width: fit-content;
 }
 
@@ -64,6 +65,9 @@
 height: 75px;
 }
 
+.activeHead{
+  color: white !important;
+}
 
 
 
@@ -85,6 +89,8 @@ height: 75px;
 
 .arrow {
   font-size: large;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin-left: 2px;
 }
 
 .navi {
@@ -138,7 +144,7 @@ input:focus {
   font-size: 10px;
   content: attr(data-hover);
   color: #edf5f3;
-  margin-top: 1.3vh;
+  margin-top:1pc;
 }
 
 .hovering {

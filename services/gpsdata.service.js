@@ -10,10 +10,31 @@ async function deviceData(data) {
   return result;
 }
 
-async function allData() {
-  const [result] = await DB.query(`SELECT * FROM gps_locations; `);
-  console.log(result)
-  return result;
+
+async function searchData(data) {
+  await DB.query(`SET sql_mode = 'PAD_CHAR_TO_FULL_LENGTH'`)
+  let query = data.data
+  let pageStart = data.pageStart
+  let order = String(data.order)
+  let sorting = String(data.sorting)
+  console.log(order, sorting)
+  
+  await DB.query(`
+  create table IF NOT EXISTS new_table 
+  (select ID, Device_ID,Device_Type, max(Time_Stamp) as "Time_Stamp",Location from gps_locations
+  where 
+  Device_ID like ? or 
+  Device_Type  like ? 
+  group by Device_ID
+  ORDER BY ${order} ${sorting}
+  ); `, [query, query]);
+   
+  const [result] = await DB.query(`select * from new_table limit ?,5`,[pageStart])
+  const [count] = await DB.query(`SELECT count(ID) FROM new_table; `);
+  await DB.query(`  drop table IF EXISTS new_table; `)
+
+  console.log(result.at(-1), count[0]['count(ID)'])
+  return {result, count:count[0]['count(ID)']};
 }
 
-export { deviceData, allData };
+export { deviceData,  searchData };
